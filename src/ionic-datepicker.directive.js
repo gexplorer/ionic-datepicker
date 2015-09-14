@@ -274,35 +274,36 @@
                     if (scope.templateType.toLowerCase() === 'modal') {
                         scope.openModal();
                     } else {
+                        var popupButtons = [];
+                        popupButtons.push({
+                            text: scope.closeLabel,
+                            type: scope.closeButtonType,
+                            onTap: function () {
+                                scope.inputObj.callback(undefined);
+                            }
+                        });
+                        popupButtons.push({
+                            text: scope.todayLabel,
+                            type: scope.todayButtonType,
+                            onTap: function (e) {
+                                todaySelected();
+                                e.preventDefault();
+                            }
+                        });
+                        popupButtons.push({
+                            text: scope.setLabel,
+                            type: scope.setButtonType,
+                            onTap: function () {
+                                dateSelected();
+                            }
+                        });
+
                         $ionicPopup.show({
                             templateUrl: 'ionic-datepicker-popup.html',
                             title: scope.titleLabel,
                             subTitle: '',
                             scope: scope,
-                            buttons: [
-                                {
-                                    text: scope.closeLabel,
-                                    type: scope.closeButtonType,
-                                    onTap: function () {
-                                        scope.inputObj.callback(undefined);
-                                    }
-                                },
-                                {
-                                    text: scope.todayLabel,
-                                    type: scope.todayButtonType,
-                                    onTap: function (e) {
-                                        todaySelected();
-                                        e.preventDefault();
-                                    }
-                                },
-                                {
-                                    text: scope.setLabel,
-                                    type: scope.setButtonType,
-                                    onTap: function () {
-                                        dateSelected();
-                                    }
-                                }
-                            ]
+                            buttons: popupButtons
                         });
                     }
                 });
